@@ -8,3 +8,13 @@ EX:
 請輸入華氏溫度:ABC
 輸入錯誤!
 """
+
+try:
+    F = float(input("請輸入華氏溫度:"))
+except:
+    print("輸入錯誤!")
+else:
+    C = (F - 32) * 5 / 9
+    print("華氏溫度", F, "等於攝氏溫度", C)
+finally:
+    print("Try 結束")

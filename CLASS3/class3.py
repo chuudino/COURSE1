@@ -114,3 +114,4 @@ import turtle as t  # 引入turtle模組 並命名為t
 #         break  # 退出循環
 #     else:  # 如果上述密碼都不符合
 #         print("密碼錯誤")
+#

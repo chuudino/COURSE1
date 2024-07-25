@@ -17,6 +17,7 @@
 #     print("D")
 # else:  # 如果分數為低於60
 #     print("E")
+#
 import turtle as t  # 引入turtle模組 並命名為t
 
 # t.forward(100)  # 前進100pixels
@@ -103,13 +104,13 @@ import turtle as t  # 引入turtle模組 並命名為t
 #     else:  # 如果上述密碼都不符合
 #         print("密碼錯誤")
 
-while True:  # 循環
-    password = input("請輸入密碼:")
-    if password == "123456":  # 如果密碼為123456
-        print("密碼正確")
-        break  # 退出循環
-    elif password == "234567":  # 如果密碼為234567
-        print("歡迎加入")
-        break  # 退出循環
-    else:  # 如果上述密碼都不符合
-        print("密碼錯誤")
+# while True:  # 循環
+#     password = input("請輸入密碼:")
+#     if password == "123456":  # 如果密碼為123456
+#         print("密碼正確")
+#         break  # 退出循環
+#     elif password == "234567":  # 如果密碼為234567
+#         print("歡迎加入")
+#         break  # 退出循環
+#     else:  # 如果上述密碼都不符合
+#         print("密碼錯誤")

@@ -69,6 +69,6 @@ import random
 # L0 = ["a", "b", "c"]
 # for index in range(len(L0)):  # 循環
 #     print(f"第{index}個元素的值為{L0[index]}")
-# L0 = ["a", "b", "c"]
-# for element in L0:  # List也可以當作迴圈變數的範圍
-#     print(element)
+L0 = ["a", "b", "c"]
+for element in L0:  # List也可以當作迴圈變數的範圍
+    print(element)

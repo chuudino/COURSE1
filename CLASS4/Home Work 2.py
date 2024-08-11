@@ -18,21 +18,21 @@
 # 請輸入23~25的整數:24
 # 恭喜猜中!
 # '''
-import random
+# import random
 
-Answer = random.randint(1, 100)
-Result_Bottom = int(0)
-Result_Top = int(100)
-Result = int(input(f"請輸入{Result_Bottom}~{Result_Top}的整數: "))
-while True:
-    if Result == Answer:
-        print("恭喜猜中了！")
-        break
-    elif Result > Answer:
-        Result_Top = Result
-        print("再小一點")
-        Result = int(input(f"請輸入{Result_Top}~{Result_Bottom}的整數: "))
-    elif Result < Answer:
-        Result_Bottom = Result
-        print("再大一點")
-        Result = int(input(f"請輸入{Result_Bottom}~{Result_Top}的整數: "))
+# Answer = random.randint(1, 100)
+# Result_Bottom = int(0)
+# Result_Top = int(100)
+# Result = int(input(f"請輸入{Result_Bottom}~{Result_Top}的整數: "))
+# while True:
+#     if Result == Answer:
+#         print("恭喜猜中了！")
+#         break
+#     elif Result > Answer:
+#         Result_Top = Result
+#         print("再小一點")
+#         Result = int(input(f"請輸入{Result_Top}~{Result_Bottom}的整數: "))
+#     elif Result < Answer:
+#         Result_Bottom = Result
+#         print("再大一點")
+#         Result = int(input(f"請輸入{Result_Bottom}~{Result_Top}的整數: "))

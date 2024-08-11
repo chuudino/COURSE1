@@ -8,7 +8,7 @@
 # 如果客人按錯了按鈕（也就是輸入了不正確的編號），你需要告訴他們「輸入錯誤查無此果汁，請重新輸入」。
 # 請將果汁新增到list並使用list完成功能
 # juices_list = ["蘋果汁", "柳橙汁", "葡萄汁", "系統關閉"]
-# EX. 
+# EX.
 # 執行範例:
 # 1. 蘋果汁
 # 2. 柳橙汁
@@ -49,17 +49,17 @@
 # """
 
 juice_list = ["蘋果汁", "柳橙汁", "葡萄汁", "~~系統關閉~~"]
-for i in range (1, 5):
-    j = int (i - 1) 
-    print (f"{i}. {juice_list [j]}")
-choose = str(input ("請按鈕輸入選擇飲料號碼 ") )          
-if choose ==  str(1):
-    print (f"您點的商品是{juice_list [0]}") 
+for i in range(1, 5):
+    j = int(i - 1)
+    print(f"{i}. {juice_list [j]}")
+choose = str(input("請按鈕輸入選擇飲料號碼 "))
+if choose == str(1):
+    print(f"您點的商品是{juice_list [0]}")
 elif choose == str(2):
-    print (f"您點的商品是{juice_list [1]}")
+    print(f"您點的商品是{juice_list [1]}")
 elif choose == str(3):
-    print (f"您點的商品是{juice_list [2]}")
+    print(f"您點的商品是{juice_list [2]}")
 elif choose == str(4):
-    print (juice_list [3])
+    print(juice_list[3])
 else:
-    print ("輸入錯誤查無此果汁，請重新輸入")
+    print("輸入錯誤查無此果汁，請重新輸入")

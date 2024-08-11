@@ -48,18 +48,42 @@
 # ~~系統關閉~~
 # """
 
-juice_list = ["蘋果汁", "柳橙汁", "葡萄汁", "~~系統關閉~~"]
-for i in range(1, 5):
-    j = int(i - 1)
-    print(f"{i}. {juice_list [j]}")
-choose = str(input("請按鈕輸入選擇飲料號碼 "))
-if choose == str(1):
-    print(f"您點的商品是{juice_list [0]}")
-elif choose == str(2):
-    print(f"您點的商品是{juice_list [1]}")
-elif choose == str(3):
-    print(f"您點的商品是{juice_list [2]}")
-elif choose == str(4):
-    print(juice_list[3])
-else:
-    print("輸入錯誤查無此果汁，請重新輸入")
+# juice_list = ["蘋果汁", "柳橙汁", "葡萄汁", "~~系統關閉~~"]
+# for i in range(1, 5):
+#     j = int(i - 1)
+#     print(f"{i}. {juice_list [j]}")
+# choose = str(input("請按鈕輸入選擇飲料號碼 "))
+# if choose == str(1):
+#     print(f"您點的商品是{juice_list [0]}")
+# elif choose == str(2):
+#     print(f"您點的商品是{juice_list [1]}")
+# elif choose == str(3):
+#     print(f"您點的商品是{juice_list [2]}")
+# elif choose == str(4):
+#     print(juice_list[3])
+# else:
+#     print("輸入錯誤查無此果汁，請重新輸入")
+
+
+juice_list = ["蘋果汁", "柳橙汁", "葡萄汁", "可樂", "~~系統關閉~~"]
+
+
+while True:  # 讓程式無限循環直到使用者選擇退出
+    for i in range(len(juice_list)):  # 用for迴圈印出果汁清單
+        print(f"{i+1}. {juice_list [i]}")  # i+1是為了讓清單從1開始
+    try:  # 使用try來檢查使用者輸入的是否為數字
+        choose = (
+            int(input("請按鈕輸入選擇飲料號碼 ")) - 1
+        )  # 讓使用者輸入選擇的號碼後-1是為了取得正確的index
+    except:  # 如果使用者輸入的不是數字就印出錯誤訊息
+        print("輸入錯誤請重新輸入")
+        continue
+    if choose == len(juice_list) - 1:  # 如果使用者選擇4就退出程式
+        print(juice_list[len(juice_list) - 1])
+        break  # 退出while迴圈
+    elif (
+        choose < len(juice_list) and choose >= 0
+    ):  # 如果使用者輸入的號碼小於清單長度就印出選擇的果汁
+        print(f"您點的商品是{juice_list [choose]}")
+    else:  # 如果使用者輸入的號碼大於清單長度就印出錯誤訊息
+        print("輸入錯誤查無此果汁，請重新輸入")

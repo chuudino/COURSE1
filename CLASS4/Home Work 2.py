@@ -36,3 +36,25 @@
 #         Result_Bottom = Result
 #         print("再大一點")
 #         Result = int(input(f"請輸入{Result_Bottom}~{Result_Top}的整數: "))
+import random
+
+Answer = random.randint(1, 100)  # 產生1~100的隨機整數
+Result_Bottom = 1  # 設定猜數字的範圍
+Result_Top = 100  # 設定猜數字的範圍
+while True:  # 重複執行直到猜中
+    try:  # 錯誤處理，如果輸入的不是數字，就會跳到except
+        Result = int(input(f"請輸入{Result_Bottom}~{Result_Top}的整數:"))
+    except:  # 輸入的不是數字, 跳到這裡
+        print("請輸入數字")
+        continue  # 跳回while開始的地方
+    if Result == Answer:  # 猜中了
+        print("恭喜猜中了！")
+        break  # 跳出while迴圈, 結束程式
+    elif Result > Answer:  # 猜的數字比答案大
+        if Result < Result_Top:  # 如果猜的數字比上次猜的數字小
+            Result_Top = Result  # 更新猜數字的範圍
+        print("再小一點")
+    elif Result < Answer:  # 猜的數字比答案小
+        if Result > Result_Bottom:  # 如果猜的數字比上次猜的數字大
+            Result_Bottom = Result  # 更新猜數字的範圍
+        print("再大一點")

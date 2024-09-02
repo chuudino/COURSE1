@@ -132,10 +132,10 @@ while True:  # 讓程式無限循環直到使用者選擇退出
         for j in range(len(Menu_list)):  # 用for迴圈印出餐點清單
             print(f"{j+1}. {Menu_list[j]}")
         try:
-            choose_j = int(input("請輸入餐點編號:") - 1)
+            choose_j = int(input("請輸入餐點編號:")) - 1
         except:
             print("輸入錯誤查無此餐點，請重新輸入餐點編號")
-            continue
+        continue
         if choose_j < len(Menu_list) and choose_j >= 0:
             print(f"您點的餐點是: {Menu_list[choose_j]}")
             Order_amount[choose_j] = Order_amount[choose_j] + 1

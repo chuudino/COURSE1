@@ -118,7 +118,7 @@
 
 Function_list = ["新增餐點", "移除餐點", "提交菜單"]
 Menu_list = ["蘋果汁", "柳橙汁", "葡萄汁"]
-Oder_amount = [0] * len(Menu_list)  # 定義餐點數量
+Oder_amount = [0, 0, 0]  # 定義餐點數量
 while True:  # 讓程式無限循環直到使用者選擇退出
     for i in range(len(Function_list)):  # 用for迴圈印出功能清單
         print(f"{i+1}. {Function_list [i]}")  # i+1是為了讓清單從1開始
@@ -127,7 +127,6 @@ while True:  # 讓程式無限循環直到使用者選擇退出
         # 讓使用者輸入選擇的號碼後-1是為了取得正確的index
     except:  # 如果使用者輸入的不是數字就印出錯誤訊息
         print("查無此功能請重新輸入")
-        continue
     if choose_i == 0:
         for j in range(len(Menu_list)):  # 用for迴圈印出餐點清單
             print(f"{j+1}. {Menu_list[j]}")
@@ -135,10 +134,9 @@ while True:  # 讓程式無限循環直到使用者選擇退出
             choose_j = int(input("請輸入餐點編號:")) - 1
         except:
             print("輸入錯誤查無此餐點，請重新輸入餐點編號")
-        continue
         if choose_j < len(Menu_list) and choose_j >= 0:
             print(f"您點的餐點是: {Menu_list[choose_j]}")
-            Order_amount[choose_j] = Order_amount[choose_j] + 1
+            Oder_amount[choose_j] = Oder_amount[choose_j] + 1
             print(f"目前已點的餐點數量是{Oder_amount[choose_j]}")
     elif choose_i == 1:
         try:
@@ -147,18 +145,20 @@ while True:  # 讓程式無限循環直到使用者選擇退出
             print("輸入錯誤查無此餐點，請重新輸入餐點編號")
             continue
         if choose_d < len(Menu_list) and choose_d >= 0:
-            Order_amount[choose_d] = Order_amount[choose_d] - 1
-            if Order_amount[choose_d] < 0:
-                Order_amount[choose_d] = 0
-        print(f"移除後餐點數量是{Order_amount[choose_d]}")
+            Oder_amount[choose_d] = Oder_amount[choose_d] - 1
+            if Oder_amount[choose_d] < 0:
+                Oder_amount[choose_d] = 0
+        print(f"移除後餐點數量是{Oder_amount[choose_d]}")
         print(f"選擇的餐點己移除")
     elif choose_i == 2:
         print("您點的餐點為:")
         Item = int(1)
         for k in range(len(Menu_list) - 1):
-            if Order_amount[k] == 0:
+            if Oder_amount[k] == 0:
                 continue
             else:
-                print(f"Item  {k+1}. {Menu_list[k]} " ": {Order_amount[k]}")
+                print(f" {k+1}. {Menu_list[k]} : {Oder_amount[k]}")
                 Item = Item + 1
         print("您點的餐點己提交.")
+        for i in range(len(Oder_amount)):
+            Oder_amount[i] = 0

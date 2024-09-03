@@ -132,25 +132,25 @@ while True:  # 讓程式無限循環直到使用者選擇退出
             print(f"{j+1}. {Menu_list[j]}")
         try:
             choose_j = int(input("請輸入餐點編號:")) - 1
+            for choose_j < len(Menu_list) and choose_j >= 0:
+                print(f"您點的餐點是: {Menu_list[choose_j]}")
+                Oder_amount[choose_j] = Oder_amount[choose_j] + 1
+                print(f"目前已點的餐點數量是{Oder_amount[choose_j]}")
         except:
             print("輸入錯誤查無此餐點，請重新輸入餐點編號")
-        for choose_j < len(Menu_list) and choose_j >= 0:
-            print(f"您點的餐點是: {Menu_list[choose_j]}")
-            Oder_amount[choose_j] = Oder_amount[choose_j] + 1
-            print(f"目前已點的餐點數量是{Oder_amount[choose_j]}")
-        else:
-            choose_j =int(input("輸入錯誤查無此餐點，請重新輸入餐點編號:") - 1
+            continue
     if choose_i == 1:
         try:
             choose_d = int(input("請輸入要移除的餐點編號:")) - 1
-        except:
-            print("輸入錯誤查無此餐點，請重新輸入餐點編號")
-        if choose_d < len(Menu_list) and choose_d >= 0:
-            Oder_amount[choose_d] = Oder_amount[choose_d] - 1
+            if choose_d < len(Menu_list) and choose_d >= 0:
+                Oder_amount[choose_d] = Oder_amount[choose_d] - 1
             if Oder_amount[choose_d] < 0:
                 Oder_amount[choose_d] = 0
-        print(f"移除後餐點數量是{Oder_amount[choose_d]}")
-        print(f"選擇的餐點己移除")
+            print(f"移除後餐點數量是{Oder_amount[choose_d]}")
+            print(f"選擇的餐點己移除")
+        except:
+            print("輸入錯誤查無此餐點，請重新輸入餐點編號")
+            continue
     elif choose_i == 2:
         print("您點的餐點為:")
         Item = int(1)
@@ -158,7 +158,7 @@ while True:  # 讓程式無限循環直到使用者選擇退出
             if Oder_amount[k] == 0:
                 continue
             else:
-                print(f" {k+1}. {Menu_list[k]} : {Oder_amount[k]}")
+                print(f"Item {Item} {k+1}. {Menu_list[k]} : {Oder_amount[k]}")
                 Item = Item + 1
         print("您點的餐點己提交.")
         for i in range(len(Oder_amount)):

@@ -78,17 +78,8 @@ while True:  # 讓程式無限循環直到使用者選擇退出
         continue
 
     if choose_i == 0:  # 新增科目成績
-        while True:
-            try:
-                Course = str(input(f"請輸入想新增的科目:"))
-                break
-            except:
-                print("請輸入正確的科目!")
-                continue
+        Course = input(f"請輸入想新增的科目:")
         while True:  # 判斷是否存在某個key
-            if Course in GradeBook_Dino.keys():  # 判斷是否存在某個key
-                print("此科目已存在!")
-                break
             try:
                 Grade = int(input(f"請輸入分數:"))
             except:
@@ -97,14 +88,14 @@ while True:  # 讓程式無限循環直到使用者選擇退出
             if Grade > 100 or Grade < 0:
                 print("分數輸入錯誤，請重新輸入")
                 continue
-            GradeBook_Dino.update({Course: Grade})
+            GradeBook_Dino[Course] = Grade
             print(f"您的成績已新增!")
             break
 
     elif choose_i == 1:
         Course = str(input(f"請輸入想刪除科目成績:"))
         if Course in GradeBook_Dino.keys():  # 判斷是否存在某個key
-            V = GradeBook_Dino.pop(Course)
+            V = GradeBook_Dino.pop(Course)  # 回傳值是分數
             print(f"{Course}: {V} 刪除成功!")
         else:
             print("此科目尚未新增!")
@@ -112,11 +103,5 @@ while True:  # 讓程式無限循環直到使用者選擇退出
     elif choose_i == 2:
         if not GradeBook_Dino:
             print("目前您尚未新增任何成績!")
-            continue
         else:
-            Total = 0
-            for key, value in GradeBook_Dino.items():
-                print(f"{key}: {value}")
-                Total = Total + int(value)
-        print(f"總平均為:{Total / len(GradeBook_Dino)}")
-    continue
+            print(f"總平均為:{sum(GradeBook_Dino.values()) / len(GradeBook_Dino)}")

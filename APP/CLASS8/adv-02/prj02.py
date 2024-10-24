@@ -1,7 +1,4 @@
 #######################匯入模組#######################
-# 匯入 tkinter 模組
-# import tkinter
-# import tkinter as tk
 from tkinter import *  #
 
 #######################全域變數########################
@@ -12,25 +9,24 @@ cnt = 0
 def hi_fun():
     global cnt
     cnt += 1
-    if cnt % 3 == 0:
-        print("Hello singular")
+    if cnt % 2 == 1:
+        display(windows, Text="Green", fg="black", bg="green")
+    else:
+        display(windows, Text="Red", fg="black", bg="red")
 
 
 #######################建立視窗########################
-# 創建主視窗
-# windows = tkinter.Tk()
-# windows = tk.Tk()
 windows = Tk()
 
 # 設定視窗標題
-windows.title("My First GUI Program")
+windows.title("Exercise 2 - 2024/09/27 CLASS 8")
 
 # 設定視窗大小
 windows.geometry("800x600")
 
 #######################建立按鈕########################
-btn1 = Button(windows, text="click me!", command=hi_fun)
-btn1.pack()
+btn = Button(windows, text="Click Me!", command=hi_fun)
+btn.pack()
 
 #######################運行應用程式########################
 

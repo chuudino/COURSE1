@@ -10,9 +10,9 @@ def hi_fun():
     global cnt
     cnt += 1
     if cnt % 2 == 1:
-        display(windows, Text="Green", fg="black", bg="green")
+        display = Label(windows, Text="Green", fg="black", bg="green")
     else:
-        display(windows, Text="Red", fg="black", bg="red")
+        display = Label(windows, Text="Red", fg="black", bg="red")
 
 
 #######################建立視窗########################

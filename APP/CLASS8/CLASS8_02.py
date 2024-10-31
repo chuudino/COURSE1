@@ -30,13 +30,19 @@ windows.title("My First GUI Program")
 windows.geometry("800x600")
 
 # 設定按鈕與標籤文字大小
-windows.option_add("*Button.Font", "TimesNewRoman 24")
+windows.option_add("*Button.Font", "TimesNewRoman 36")
 windows.option_add("*Label.Font", "TimesNewRoman 24")
 
 #######################建立按鈕########################
 # 按鈕要連動function，command=函數名稱
 btn1 = Button(windows, text="click me!", command=hi_fun)
 btn1.pack()  # 放置按鈕到視窗上
+
+#######################建立按鈕########################
+# 按鈕要連動function，command=函數名稱
+btn1 = Button(windows, text="Show Screen", command=hi_fun)
+btn1.pack()  # 放置按鈕到視窗上
+
 
 #######################建立標籤########################
 label1 = Label(windows, text="Hello World!")

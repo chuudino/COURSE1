@@ -9,7 +9,7 @@ from PIL import ImageTk, Image
 def open_file():
     global file_path
     # 選擇檔案, initialdir為初始目錄,這裡設定為程式所在目錄
-    file_path = filedialog.askopenfilename(initialdir=os.path[0])
+    file_path = filedialog.askopenfilename(initialdir=sys.path[0])
     label2.config(text=file_path)  # 設定檔名
 
 
@@ -17,9 +17,7 @@ def show_image():  # 顯示圖片
     global file_path
     img = Image.open(file_path)  # 打開圖片檔案
     # 調整圖片大小,讓它適合畫布旳大小
-    img = img.resize(
-        (canvas.winfo_width(), canvas.info_height()), Image.ANTIALIAS
-    )  # 調整圖片大小
+    img = img.resize((canvas.winfo_width(), canvas.winfo_height()))  # 調整圖片大小
     # 轉換成tkinter可以使用的格式
     photo = ImageTk.PhotoImage(img)
     # 在畫布上顯示圖片, 圖片的左上角會對齊畫布的左上角
@@ -62,7 +60,7 @@ button.grid(row=0, column=2, padx=10, pady=10, sticky="W")
 button2 = Button(
     window, text="顯示", style="my.TButton", command=show_image
 )  # 設定按鈕樣式
-button2.grid(row=1, column=0, padx=10, pady=10, sticky="EW")
+button2.grid(row=1, column=0, padx=10, pady=10, sticky="EW", columnspan=3)
 
 canvas = Canvas(window, width=600, height=600)
 canvas.grid(row=2, column=0, padx=10, pady=10, columnspan=3)

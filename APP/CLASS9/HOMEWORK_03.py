@@ -10,14 +10,16 @@ def open_file():
     global file_path
     # 選擇檔案, initialdir為初始目錄,這裡設定為程式所在目錄
     file_path = filedialog.askopenfilename(initialdir=sys.path[0])
-    label2.config(text=file_path)  # 設定檔名
+    label2.configure(text=file_path)  # 設定檔名
 
 
 def show_image():  # 顯示圖片
     global file_path
     img = Image.open(file_path)  # 打開圖片檔案
     # 調整圖片大小,讓它適合畫布旳大小
-    img = img.resize((canvas.winfo_width(), canvas.winfo_height()))  # 調整圖片大小
+    img = img.resize(
+        (canvas.winfo_width(), canvas.winfo_height()), Image.LANCZOS
+    )  # 調整圖片大小
     # 轉換成tkinter可以使用的格式
     photo = ImageTk.PhotoImage(img)
     # 在畫布上顯示圖片, 圖片的左上角會對齊畫布的左上角
@@ -44,10 +46,10 @@ style.configure("my.TLabel", font=(f"TimesNewRoman {font_size}"))
 #######################建立標籤########################
 #######################建立標籤########################
 label = Label(window, text="選擇檔案:")
-label.grid(row=0, column=0, padx=10, pady=10, sticky="E")
+label.grid(row=0, column=0, padx=10, pady=10, sticky="EW")
 
 label2 = Label(window, text="無")
-label2.grid(row=0, column=1, padx=10, pady=10, sticky="E")
+label2.grid(row=0, column=1, padx=10, pady=10, sticky="EW")
 # padx=10 設定與其他格子的左右邊距, pady=10 設定與其他格子的上下邊距, sticky="NEWS" 設定在格子中的顯示方式
 # rowspan=2 設定格子的行數, columnspan=2 設定格子的列數
 

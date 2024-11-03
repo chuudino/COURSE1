@@ -11,9 +11,9 @@ def hi_fun():
     global cnt
     cnt += 1
     if cnt % 2 == 1:
-        label1.config(text="Green", background="green")  # 修改標籤文字
+        label1.configure(text="Green", background="green")  # 修改標籤文字
     else:
-        label1.config(text="Red", background="red")  # 修改標籤文字
+        label1.configure(text="Red", background="red")  # 修改標籤文字
 
 
 #######################設定工作目錄########################

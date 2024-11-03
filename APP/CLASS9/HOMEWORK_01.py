@@ -3,17 +3,17 @@ import sys
 import os
 
 #######################全域變數########################
-cnt = 0
+# cnt = 0
 
 
 #######################定義函數########################
 def hi_fun1():
-    global cnt
+    # global cnt
     label1["text"] = "Hello Singular!"  # 修改標籤文字
 
 
 def hi_fun2():
-    global cnt
+    # global cnt
     label1["text"] = "   "  # 修改標籤文字
 
 

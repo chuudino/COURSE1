@@ -53,7 +53,7 @@ def get_weather():
             print("圖片已下載")
             image = Image.open("weather_icon.png")
             image = ImageTk.PhotoImage(image)
-            icon_label["image"] = image
+            icon_label["image"] = image  # icon_label.config(image=image)
             icon_label.image = image
 
             temp_label["text"] = f"溫度: {temp}{'℉' if UNITS == 'imperial' else '℃'}"
@@ -85,12 +85,7 @@ check_type.set(True)
 
 #######################建立按鈕########################
 # 按鈕要連動function，command=函數名稱
-btn1 = Button(
-    window,
-    text="獲得天氣資料",
-    style="my.TButton",
-    command=get_weather,
-)
+btn1 = Button(window, text="獲得天氣資料", style="my.TButton", command=get_weather)
 btn1.grid(row=0, column=2)
 
 

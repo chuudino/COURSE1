@@ -44,7 +44,6 @@ style.configure("my.TButton", font=(f"TimesNewRoman {font_size}"))
 style.configure("my.TLabel", font=(f"TimesNewRoman {font_size}"))
 
 #######################建立標籤########################
-#######################建立標籤########################
 label = Label(window, text="選擇檔案:")
 label.grid(row=0, column=0, padx=10, pady=10, sticky="EW")
 

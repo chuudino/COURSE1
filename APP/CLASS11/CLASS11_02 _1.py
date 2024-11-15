@@ -56,11 +56,12 @@ def get_weather():
             icon_label["image"] = image
             icon_label.image = image
 
-            temp_label["text"] = f"溫度: {temp}{'℉' if UNITS == 'imperial' else '℃'}"
-            description_label["text"] = f"描述: {description}"
-
         else:
             print("圖片下載失敗")
+
+        temp_label["text"] = f"溫度: {temp}{'℉' if UNITS == 'imperial' else '℃'}"
+        description_label["text"] = f"描述: {description}"
+
     else:
         description_label["text"] = "沒有找到城市"
 

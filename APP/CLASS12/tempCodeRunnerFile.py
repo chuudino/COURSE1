@@ -22,6 +22,6 @@ if "list" in info:
         dt_txt = forecast["dt_txt"]
         temp = forecast["main"]["temp"]
         weather_description = forecast["weather"][0]["description"]
-        print(f"{dt_txt}\n溫度: {temp}℃\n天氣狀況: {weather_description}")
+        print(f" {dt_txt}\n溫度: {temp}℃\n天氣狀況: {weather_description}")
 else:
     print("找不到該城市或無法獲取天氣資訊")

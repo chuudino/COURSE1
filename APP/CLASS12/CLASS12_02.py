@@ -24,7 +24,7 @@ font = FontProperties(fname="LXGWWenKaiTC-Regular.ttf", size=20)
 # labels = ["A", "B", "C", "D", "E"]
 # values = [23, 85, 72, 43, 52]
 
-# # 繪製柱狀圖
+# # # 繪製柱狀圖
 # plt.bar(labels, values, color="royalblue")
 # plt.xlabel("類別", fontproperties=font)
 # plt.ylabel("數量", fontproperties=font)
@@ -67,17 +67,17 @@ font = FontProperties(fname="LXGWWenKaiTC-Regular.ttf", size=20)
 # img.save("qrcode.png")
 
 
-import qrcode
+# import qrcode
 
-data = "這是 QR code 的內容"
-qr = qrcode.QRCode(
-    version=1,  # 版本 (1-40, 控制 QR code 尺寸)
-    error_correction=qrcode.constants.ERROR_CORRECT_H,  # 錯誤更正等級
-    box_size=10,  # 每個方塊的像素大小
-    border=4,  # 邊框寬度
-)
-qr.add_data(data)
-qr.make(fit=True)
+# data = "這是 QR code 的內容"
+# qr = qrcode.QRCode(
+#     version=1,  # 版本 (1-40, 控制 QR code 尺寸)
+#     error_correction=qrcode.constants.ERROR_CORRECT_H,  # 錯誤更正等級
+#     box_size=10,  # 每個方塊的像素大小
+#     border=4,  # 邊框寬度
+# )
+# qr.add_data(data)
+# qr.make(fit=True)
 
-img = qr.make_image(fill_color="blue", back_color="white")
-img.save("custom_qrcode.png")
+# img = qr.make_image(fill_color="blue", back_color="white")
+# img.save("custom_qrcode.png")

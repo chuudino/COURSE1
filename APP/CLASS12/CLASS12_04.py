@@ -39,6 +39,7 @@ def get_weather():
             print(f" {dt_txt}\n溫度: {temp}℃\n天氣狀況: {weather_description}")
     else:
         print("找不到該城市或無法獲取天氣資訊")
+
     ############################繪製圖表############################
     font = FontProperties(fname="LXGWWenKaiTC-Regular.ttf", size=20)
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -80,7 +81,7 @@ btn1.grid(row=1, column=0)
 
 #######################建立標籤########################
 label1 = Label(window, text="", style="my.TLabel")
-label1.grid(row=0, column=0)
+label1.grid(row=0, column=0, sticky="nsew")
 
 
 ######################運行應用程式########################

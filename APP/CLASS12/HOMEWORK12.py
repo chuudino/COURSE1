@@ -3,13 +3,16 @@ import sys
 import os
 from PIL import Image, ImageTk
 import requests
+import datetime
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 
 #######################設定工作目錄########################
 os.chdir(sys.path[0])  # 設定工作目錄
 
 ############################定義常數############################
 API_KEY = "892da2f13edf3c7f382637760e72d224"
-BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
+BASE_URL = "https://api.openweathermap.org/data/2.5/forecast?"
 ICON_BASE_URL = "https://openweathermap.org/img/wn/"
 UNITS = "metric"
 LANG = "zh_tw"
@@ -22,24 +25,33 @@ def change_temp():
 
     if temp_label["text"] != "溫度:?℃":
         if UNITS == "metric":
-            temp = round((temp - 32) * 5 / 9, 2)
+            temp = round((ylist[0] - 32) * 5 / 9, 2)
         else:
-            temp = round((temp * 9 / 5) + 32, 2)
+            temp = round((ylist[0] * 9 / 5) + 32, 2)
         temp_label["text"] = f"溫度: {temp}{'℉' if UNITS == 'imperial' else '℃'}"
 
 
 def get_weather():
-    global temp
+    global xlist, ylist, discriptionlist
     city_name = entry1.get()
     send_Url = f"{BASE_URL}appid={API_KEY}&q={city_name}&units={UNITS}&lang={LANG}"
     response = requests.get(send_Url)
     info = response.json()
-    if "main" in info:
-        city = info["name"]
-        temp = info["main"]["temp"]
-        description = info["weather"][0]["description"]
-        icon_code = info["weather"][0]["icon"]
-        print(f"城市: {city}\n溫度: {temp}℃\n說明: {description}")
+    xlist = []
+    ylist = []
+    descriptionlist = []
+    if "list" in info:
+        city = info["city"]["name"]
+        print(f"城市: {city}")
+        for forecast in info["list"]:
+            dt_txt = forecast["dt_txt"]
+            temp = forecast["main"]["temp"]
+            time = datetime.strptime(dt_txt, "%Y-%m-%d %H:%M:%S").strftime("%m/%d %H")
+            weather_description = forecast["weather"][0]["description"]
+            xlist.append(time)
+            ylist.append(temp)
+            descriptionlist.append(weather_description)
+            print(f"日期與時間:{time}\n溫度: {temp}℃\n天氣狀況: {weather_description}")
 
         icon_url = f"{ICON_BASE_URL}{icon_code}.png"
         print(icon_url)
@@ -55,22 +67,37 @@ def get_weather():
             image = ImageTk.PhotoImage(image)
             icon_label["image"] = image  # icon_label.config(image=image)
             icon_label.image = image
+        else:
+            print("圖片下載失敗")
 
             temp_label["text"] = f"溫度: {temp}{'℉' if UNITS == 'imperial' else '℃'}"
             description_label["text"] = f"描述: {description}"
 
-        else:
-            print("圖片下載失敗")
     else:
         description_label["text"] = "沒有找到城市"
+
+    ############################繪製圖表############################
+    font = FontProperties(fname="LXGWWenKaiTC-Regular.ttf", size=20)
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.plot(xlist, ylist)
+    ax.set_xlabel("日期與時間", fontproperties=font)
+    ax.set_ylabel("溫度℃", fontproperties=font)
+    ax.set_title("7天的氣溫預測", fontproperties=font)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    fig.savefig("forecast.png")
+    image = Image.open("forecast.png")
+    image = ImageTk.PhotoImage(image)
+    label2["image"] = image
+    label2.image = image
 
 
 #######################建立視窗########################
 window = tk.Tk()
-window.title("Weather.App")  # 設定視窗標題
+window.title("Weather forecast.App")  # 設定視窗標題
 
 #######################設定字型########################
-font_size = 26
+font_size = 20
 window.option_add("*Font", f"TimesNewRoman {font_size}")
 
 #######################設定主題########################
@@ -88,7 +115,6 @@ check_type.set(True)
 btn1 = Button(window, text="獲得天氣資料", style="my.TButton", command=get_weather)
 btn1.grid(row=0, column=2)
 
-
 ######################建立標籤########################
 label1 = Label(window, text="請輸入想搜尋的城市:", style="my.TLabel")
 label1.grid(row=0, column=0)
@@ -98,6 +124,9 @@ temp_label = Label(window, text="溫度:?℃", style="my.TLabel")
 temp_label.grid(row=1, column=1)
 description_label = Label(window, text="描述:?", style="my.TLabel")
 description_label.grid(row=1, column=2)
+
+label2 = Label(window, text=" ", style="my.TLabel")
+label2.grid(row=4, column=0, padx=10, pady=10, columnspan=3)
 
 ######################建立輸入框########################
 entry1 = Entry(window, width=30, style="my.TEntry")
@@ -114,7 +143,6 @@ check1 = Checkbutton(
     offvalue=False,
 )
 check1.grid(row=2, column=0, padx=10, pady=10, columnspan=3)
-
 
 ######################運行應用程式########################
 window.mainloop()  # 進入主迴圈

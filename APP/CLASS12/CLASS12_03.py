@@ -35,6 +35,7 @@ if "list" in info:
         print(f" {dt_txt}\n溫度: {temp}℃\n天氣狀況: {weather_description}")
 else:
     print("找不到該城市或無法獲取天氣資訊")
+
 ############################繪製圖表############################
 font = FontProperties(fname="LXGWWenKaiTC-Regular.ttf", size=20)
 fig, ax = plt.subplots(figsize=(12, 6))

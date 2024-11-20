@@ -1,0 +1,1 @@
+ icon_code = info["weather"][0]["icon"]

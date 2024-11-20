@@ -20,7 +20,7 @@ LANG = "zh_tw"
 
 #######################定義函數########################
 def change_temp():
-    global UNITS, temp
+    global UNITS, ylist
     UNITS = "metric" if check_type.get() else "imperial"
 
     if temp_label["text"] != "溫度:?℃":
@@ -32,7 +32,7 @@ def change_temp():
 
 
 def get_weather():
-    global xlist, ylist, discriptionlist
+    global xlist, ylist, descriptionlist, iconlist
     city_name = entry1.get()
     send_Url = f"{BASE_URL}appid={API_KEY}&q={city_name}&units={UNITS}&lang={LANG}"
     response = requests.get(send_Url)
@@ -40,20 +40,25 @@ def get_weather():
     xlist = []
     ylist = []
     descriptionlist = []
+    iconlist = []
     if "list" in info:
         city = info["city"]["name"]
         print(f"城市: {city}")
         for forecast in info["list"]:
             dt_txt = forecast["dt_txt"]
             temp = forecast["main"]["temp"]
-            time = datetime.strptime(dt_txt, "%Y-%m-%d %H:%M:%S").strftime("%m/%d %H")
+            time = datetime.datetime.strptime(dt_txt, "%Y-%m-%d %H:%M:%S").strftime(
+                "%m/%d %H"
+            )
             weather_description = forecast["weather"][0]["description"]
+            icon_code = forecast["weather"][0]["icon"]
             xlist.append(time)
             ylist.append(temp)
             descriptionlist.append(weather_description)
+            iconlist.append(icon_code)
             print(f"日期與時間:{time}\n溫度: {temp}℃\n天氣狀況: {weather_description}")
 
-        icon_url = f"{ICON_BASE_URL}{icon_code}.png"
+        icon_url = f"{ICON_BASE_URL}{iconlist[0]}.png"
         print(icon_url)
         icon_response = requests.get(icon_url)
         if icon_response.status_code == 200:
@@ -70,8 +75,8 @@ def get_weather():
         else:
             print("圖片下載失敗")
 
-            temp_label["text"] = f"溫度: {temp}{'℉' if UNITS == 'imperial' else '℃'}"
-            description_label["text"] = f"描述: {description}"
+        temp_label["text"] = f"溫度: {ylist[0]}{'℉' if UNITS == 'imperial' else '℃'}"
+        description_label["text"] = f"描述: {descriptionlist[0]}"
 
     else:
         description_label["text"] = "沒有找到城市"
@@ -110,10 +115,6 @@ style.configure("my.TButton", font=(f"TimesNewRoman {font_size}"))
 check_type = BooleanVar()
 check_type.set(True)
 
-#######################建立按鈕########################
-# 按鈕要連動function，command=函數名稱
-btn1 = Button(window, text="獲得天氣資料", style="my.TButton", command=get_weather)
-btn1.grid(row=0, column=2)
 
 ######################建立標籤########################
 label1 = Label(window, text="請輸入想搜尋的城市:", style="my.TLabel")
@@ -127,6 +128,13 @@ description_label.grid(row=1, column=2)
 
 label2 = Label(window, text=" ", style="my.TLabel")
 label2.grid(row=4, column=0, padx=10, pady=10, columnspan=3)
+
+
+#######################建立按鈕########################
+# 按鈕要連動function，command=函數名稱
+btn1 = Button(window, text="獲得天氣資料", style="my.TButton", command=get_weather)
+btn1.grid(row=0, column=2)
+
 
 ######################建立輸入框########################
 entry1 = Entry(window, width=30, style="my.TEntry")

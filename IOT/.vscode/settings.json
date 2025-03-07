@@ -25,5 +25,10 @@
             "command": "extension.execute",
             "priority": 4
         }
-    ]
+    ],
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "file": ".vscode/.copilot-commit-message-instructions.md"
+        }
+    ],
 }

@@ -1,0 +1,20 @@
+from machine import Pin, PWM, ADC
+from time import sleep
+import mcu
+
+gpio = mcu.gpio()
+freq = 1000  # 頻率
+duty = 0  # 工作週期
+light_sensor = ADC(0)  # 光敏電阻
+RED = PWM(Pin(gpio.D5), freq=freq, duty=duty)  # 紅燈
+GREEN = PWM(Pin(gpio.D6), freq=freq, duty=duty)  # 綠燈
+BLUE = PWM(Pin(gpio.D7), freq=freq, duty=duty)  # 藍燈
+
+
+while True:
+    light_value = light_sensor.read()  # 讀取光敏電阻的值
+    print(f"value={light_value}, {round(light_value * 100 / 1024)}%")
+    RED.duty(light_value)  # 設定紅燈的工作週期
+    GREEN.duty(light_value)  # 設定綠燈的工作週期
+    BLUE.duty(light_value)  # 設定藍燈的工作週期
+    sleep(1.0)  # 每秒讀取一次

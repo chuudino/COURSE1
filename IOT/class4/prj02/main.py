@@ -27,8 +27,8 @@ def connect_wifi(ssid, password):
 # 建立 mcu.gpio 物件，方便後續控制腳位
 gpio = mcu.gpio()
 # 請替換成您的 WIFI 認證資訊
-WIFI_SSID = "Singular_AI"
-WIFI_PASSWORD = "Singular#1234"
+WIFI_SSID = "SpectrumSetup-95"
+WIFI_PASSWORD = "evenstoday039"
 
 # 連接 WIFI
 connect_wifi(WIFI_SSID, WIFI_PASSWORD)

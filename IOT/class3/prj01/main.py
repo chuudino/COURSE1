@@ -8,7 +8,7 @@ duty = 0  # 工作週期
 RED = PWM(Pin(gpio.D5), freq=freq, duty=duty)  # 紅燈
 GREEN = PWM(Pin(gpio.D6), freq=freq, duty=duty)  # 綠燈
 BLUE = PWM(Pin(gpio.D7), freq=freq, duty=duty)  # 藍燈
-delay = 0.002  # 延遲時間
+delay = 0.003  # 延遲時間
 
 while True:
     for duty in range(0, 1024, 1):

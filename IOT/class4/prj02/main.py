@@ -14,7 +14,7 @@ def connect_wifi(ssid, password):
     print("Available networks:")
     for net in networks:
         # 顯示每個網路的 SSID 與訊號強度
-        print(f"SSID: {net[0].decode()}, Signal strength: {net[3]}%")
+        print(f"SSID: {net[0].decode()}, Signal strength: {net[3]} dBm")
 
     if not wlan.isconnected():  # 如果尚未連線，則嘗試連線
         print("Connecting to network...")
@@ -27,8 +27,8 @@ def connect_wifi(ssid, password):
 # 建立 mcu.gpio 物件，方便後續控制腳位
 gpio = mcu.gpio()
 # 請替換成您的 WIFI 認證資訊
-WIFI_SSID = "SpectrumSetup-95"
-WIFI_PASSWORD = "evenstoday039"
+WIFI_SSID = "Dino Chuu"
+WIFI_PASSWORD = "0937524990"
 
 # 連接 WIFI
 connect_wifi(WIFI_SSID, WIFI_PASSWORD)

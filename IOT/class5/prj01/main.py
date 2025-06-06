@@ -9,6 +9,8 @@ gpio = mcu.gpio()
 # 請替換成您的 WIFI 認證資訊
 WIFI_SSID = "Singular_AI"
 WIFI_PASSWORD = "Singular#1234"
+# WIFI_SSID = "Dino Chuu"
+# WIFI_PASSWORD = "0937524990"
 
 # 建立 mcu.wifi 物件
 wifi = mcu.wifi(WIFI_SSID, WIFI_PASSWORD)

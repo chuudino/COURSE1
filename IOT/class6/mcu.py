@@ -69,6 +69,66 @@ class gpio:
         return self._SDD2
 
 
+class led:
+    """RGB 三色燈控制（支援 PWM 亮度/非 PWM 開關）。
+
+    初始化由 main.py 傳入參數：
+      - r_pin, g_pin, b_pin: RGB 三色腳位（可直接傳 gpio().D4 等）
+      - pwm: 是否啟用 PWM
+
+    亮度範圍規則（由 pwm 決定）：
+      - pwm=False：每色 brightness 只能是 0/1（關/開）
+      - pwm=True：每色 brightness 必須是 0..1023（duty）
+
+        led_open(r, g, b)：分別控制 RGB 三色亮度/開關。
+    """
+
+    def __init__(self, r_pin, g_pin, b_pin, pwm=False):
+        from machine import Pin
+
+        self.r_pin = r_pin
+        self.g_pin = g_pin
+        self.b_pin = b_pin
+        self.pwm_enabled = bool(pwm)
+        self.freq = 1000
+
+        if self.pwm_enabled:
+            from machine import PWM
+
+            self._r = PWM(Pin(self.r_pin), freq=self.freq, duty=0)
+            self._g = PWM(Pin(self.g_pin), freq=self.freq, duty=0)
+            self._b = PWM(Pin(self.b_pin), freq=self.freq, duty=0)
+
+        else:
+            self._r = Pin(self.r_pin, Pin.OUT, value=0)
+            self._g = Pin(self.g_pin, Pin.OUT, value=0)
+            self._b = Pin(self.b_pin, Pin.OUT, value=0)
+
+    def led_open(self, r=1, g=1, b=1):
+        """設定 RGB 三色燈亮度/開關。"""
+        r = int(r)
+        g = int(g)
+        b = int(b)
+
+        if self.pwm_enabled:
+            r = max(0, min(1023, r))
+            g = max(0, min(1023, g))
+            b = max(0, min(1023, b))
+
+            self._r.duty(r)
+            self._g.duty(g)
+            self._b.duty(b)
+            return
+
+        r = max(0, min(1, r))
+        g = max(0, min(1, g))
+        b = max(0, min(1, b))
+
+        self._r.value(r)
+        self._g.value(g)
+        self._b.value(b)
+
+
 class wifi:
     # wifi 類別：用來管理 WiFi 連線與設定
     def __init__(self, ssid=None, password=None):

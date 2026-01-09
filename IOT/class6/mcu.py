@@ -77,8 +77,8 @@ class led:
       - pwm: 是否啟用 PWM
 
     亮度範圍規則（由 pwm 決定）：
-      - pwm=False：每色 brightness 只能是 0/1（關/開）
-      - pwm=True：每色 brightness 必須是 0..1023（duty）
+      - pwm=False:每色 brightness 只能是 0/1 (關/開）
+      - pwm=True :每色 brightness 必須是 0..1023 (duty)
 
         led_open(r, g, b)：分別控制 RGB 三色亮度/開關。
     """
@@ -115,9 +115,9 @@ class led:
             g = max(0, min(1023, g))
             b = max(0, min(1023, b))
 
-            self._r.duty(r)
-            self._g.duty(g)
-            self._b.duty(b)
+            self._r.duty(700)
+            self._g.duty(700)
+            self._b.duty(700)
             return
 
         r = max(0, min(1, r))
@@ -147,8 +147,8 @@ class wifi:
         setup(sta_activate=True, ap_activate=False)\n
         啟用或關閉 STA/AP 模式。\n
         參數：\n
-          sta_activate (bool): 是否啟用 STA（連接無線網路）模式，預設 True。\n
-          ap_activate (bool): 是否啟用 AP（無線基地台）模式，預設 False。\n
+          sta_activate (bool): 是否啟用 STA (連接無線網路）模式，預設 True。\n
+          ap_activate (bool): 是否啟用 AP (無線基地台）模式，預設 False。\n
         用法範例：\n
           wifi1 = wifi()\n
           wifi1.setup(sta_activate=True, ap_activate=False)
@@ -176,13 +176,14 @@ class wifi:
         for net in networks:
             print(f"SSID: {net[0].decode()}, Signal strength: {net[3]}%")
 
-    def connect(self, ssid=None, password=None):
+    def connect(self, ssid=None, password=None, timeout=15):
         """
-        connect(ssid=None, password=None)\n
+        connect(ssid=None, password=None, timeout=15)\n
         連接到指定的 WiFi 無線網路。\n
         參數：\n
           ssid (str): WiFi 名稱，預設為初始化時設定的名稱。\n
           password (str): WiFi 密碼，預設為初始化時設定的密碼。\n
+          timeout (int): 連線超時時間（秒），預設 15 秒。\n
         用法範例：\n
           wifi1 = wifi()\n
           wifi1.connect('MyWiFi', 'mypassword')
@@ -197,9 +198,16 @@ class wifi:
         if not self.sta.active():
             self.sta.active(True)
         if not self.sta.isconnected():
-            print("Connecting to network...")
+            print(f"Connecting to {self.ssid}...")
             self.sta.connect(self.ssid, self.password)
+            start_time = time.time()
             while not self.sta.isconnected():
+                if time.time() - start_time > timeout:
+                    print("Connection timeout! Failed to connect.")
+                    return False
                 time.sleep(1)
+                print(".", end="")
+            print()  # 換行
         self.ip = self.sta.ifconfig()
-        print("Network configuration:", self.ip)
+        print("Connected! IP:", self.ip[0])
+        return True

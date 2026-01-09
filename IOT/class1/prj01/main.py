@@ -6,8 +6,8 @@ led = PWM(Pin(2), freq=freq, duty=0)
 
 while True:
     led.duty(0)
-    sleep(1)
+    sleep(2)
     led.duty(700)
-    sleep(1)
+    sleep(2)
     led.duty(1023)
     sleep(1)

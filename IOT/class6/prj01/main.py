@@ -9,7 +9,7 @@ if sys.implementation.name != "micropython":
     )
 
 import time  # 匯入時間相關模組
-import class6.mcu as mcu  # 匯入自訂的 mcu 模組
+import mcu  # 匯入自訂的 mcu 模組
 
 
 # 建立 mcu.gpio 物件，方便後續控制腳位

@@ -33,10 +33,10 @@ mp3 = mcu.MP3()
 
 
 # 請替換成您的 WIFI 認證資訊
-# WIFI_SSID = "Singular_AI"
-# WIFI_PASSWORD = "Singular#1234"
-WIFI_SSID = "Dino Chuu"
-WIFI_PASSWORD = "0937524990"
+WIFI_SSID = "Singular_AI"
+WIFI_PASSWORD = "Singular#1234"
+# WIFI_SSID = "Dino Chuu"
+# WIFI_PASSWORD = "0937524990"
 
 # 建立 mcu.wifi 物件
 wifi = mcu.wifi(WIFI_SSID, WIFI_PASSWORD)
@@ -93,6 +93,6 @@ while True:
         pub_counter = 0
         mqtt_client.publish("dino_home", home_sensor_json)
     pub_counter += 1
-
+    global_msg = ""
     oled.show()
     time.sleep(1)

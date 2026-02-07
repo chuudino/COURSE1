@@ -1,3 +1,4 @@
 *.wav
 TRANSLATION/*.txt
 *.pdf
+*.env

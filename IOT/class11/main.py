@@ -33,10 +33,10 @@ mp3 = mcu.MP3()
 
 
 # 請替換成您的 WIFI 認證資訊
-WIFI_SSID = "Singular_AI"
-WIFI_PASSWORD = "Singular#1234"
-# WIFI_SSID = "Dino Chuu"
-# WIFI_PASSWORD = "0937524990"
+# WIFI_SSID = "Singular_AI"
+# WIFI_PASSWORD = "Singular#1234"
+WIFI_SSID = "Dino Chuu"
+WIFI_PASSWORD = "0937524990"
 
 # 建立 mcu.wifi 物件
 wifi = mcu.wifi(WIFI_SSID, WIFI_PASSWORD)
@@ -56,6 +56,7 @@ mqtt_client.subscribe("dino", on_message)  # 訂閱主題 "dino" 並設定回呼
 
 pub_counter = 0
 home_sensor = {}
+current_mode = ""  # 持續保持目前的控制模式
 # 主程式迴圈，目前尚未執行其他功能
 while True:
     dht_sensor.measure()
@@ -70,24 +71,35 @@ while True:
     # 讀取Json資料範例: data = json.loads(home_sensor_json)
     # print("Temperature:", data["temperature"])
 
+    mqtt_client.check_msg()  # 檢查是否有收到新的 MQTT 訊息
+
+    # 收到新指令時更新模式
+    if global_msg in ("ON", "OFF", "AUTO", "PLAY"):
+        current_mode = global_msg
+        global_msg = ""
+
     oled.fill(0)  # 清除顯示內容
     oled.text("MQTT LED Control", 0, 0)
     oled.text("Topic: dino", 0, 8)
     oled.text(f"Light: {light_value}, {round(light_value * 100 / 1024)}%", 0, 16)
     oled.text(f"T:{temperature}C", 0, 24)
     oled.text(f"H:{humidity}%", 0, 32)
-    display_message(40, "Msg: " + global_msg)
-    mqtt_client.check_msg()  # 檢查是否有收到新的 MQTT 訊息
-    if global_msg == "ON":
+    display_message(40, "Mode: " + current_mode)
+
+    # 根據目前模式持續控制設備
+    if current_mode == "ON":
         led.led_open(1023, 1023, 1023)  # 白光
-    elif global_msg == "OFF":
+    elif current_mode == "OFF":
         led.led_open(0, 0, 0)  # 關閉
-    elif global_msg == "AUTO":
-        led.led_open(light_value, light_value, light_value)  # 自動調整亮度
-    elif global_msg == "PLAY":
+    elif current_mode == "AUTO":
+        # 光感測器：環境越暗 → light_value 越高 → LED 越亮
+        auto_brightness = light_value
+        led.led_open(auto_brightness, auto_brightness, auto_brightness)
+    elif current_mode == "PLAY":
         mp3.start(volume=100, song=1)  # 播放音樂
         time.sleep(5)
         mp3.stop()
+        current_mode = ""  # 播放完畢後清除模式，避免重複播放
 
     if temperature > 38:
         mp3.start(volume=100, song=1)  # 播放音樂
@@ -98,6 +110,5 @@ while True:
         pub_counter = 0
         mqtt_client.publish("dino_home", home_sensor_json)
     pub_counter += 1
-    global_msg = ""
     oled.show()
     time.sleep(1)

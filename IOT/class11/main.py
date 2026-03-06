@@ -43,8 +43,12 @@ wifi = None
 for ssid, password in WIFI_LIST:
     try:
         print(f"嘗試連線 WiFi: {ssid}")
-        wifi = mcu.wifi(ssid, password)
-        wifi.connect()
+        w = mcu.wifi(ssid, password)
+        connected = w.connect()
+        if not connected:
+            print(f"連線 {ssid} 逾時，嘗試下一個...")
+            continue
+        wifi = w
         print(f"已連線到 WiFi: {ssid}")
         break
     except Exception as e:

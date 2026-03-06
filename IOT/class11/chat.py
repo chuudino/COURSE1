@@ -9,6 +9,10 @@ from openai import OpenAI
 import paho.mqtt.client as mqtt
 import speech_recognition as sr
 import os
+from dotenv import load_dotenv
+
+# 載入腳本同目錄下的 .env（不依賴工作目錄）
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 # ============================================================
 # OpenAI 設定

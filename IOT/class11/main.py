@@ -32,15 +32,29 @@ dht_sensor = dht.DHT11(Pin(gpio.D0, Pin.IN))  # DHT11 溫濕度感測器
 mp3 = mcu.MP3()
 
 
-# 請替換成您的 WIFI 認證資訊
-# WIFI_SSID = "Singular_AI"
-# WIFI_PASSWORD = "Singular#1234"
-WIFI_SSID = "Dino Chuu"
-WIFI_PASSWORD = "0937524990"
+# WiFi 清單（依優先順序嘗試連線）
+WIFI_LIST = [
+    ("Dino Chuu", "0937524990"),
+    ("Singular_AI", "Singular#1234"),
+]
 
-# 建立 mcu.wifi 物件
-wifi = mcu.wifi(WIFI_SSID, WIFI_PASSWORD)
-wifi.connect()
+# 依序嘗試連線 WiFi
+wifi = None
+for ssid, password in WIFI_LIST:
+    try:
+        print(f"嘗試連線 WiFi: {ssid}")
+        wifi = mcu.wifi(ssid, password)
+        wifi.connect()
+        print(f"已連線到 WiFi: {ssid}")
+        break
+    except Exception as e:
+        print(f"連線 {ssid} 失敗: {e}")
+
+if wifi is None:
+    oled.fill(0)
+    oled.text("WiFi Failed!", 0, 0)
+    oled.show()
+    raise RuntimeError("所有 WiFi 均連線失敗")
 
 # 建立 MQTT 客戶端並連接到 MQTT 代理伺服器
 mqtt_client = mcu.MQTT(
